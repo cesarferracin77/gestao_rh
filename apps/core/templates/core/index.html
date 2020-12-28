@@ -4,6 +4,8 @@
 Olá {{ usuario.funcionario.nome }}, seja bem vindo!
 <br>
 <a href="{% url 'list_funcionarios' %}">Gerenciar funcionarios</a>
+<br>
+<a href="{% url 'list_departamentos' %}">Gerenciar departamentos</a>
 {% if usuario.funcionario.empresa %}
 <a href="{% url 'edit_empresa' usuario.funcionario.empresa.id %}">Editar empresa {{ usuario.funcionario.empresa }}</a>
 {% else %}
