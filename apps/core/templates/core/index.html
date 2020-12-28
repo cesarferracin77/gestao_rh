@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
 {% block main %}
-Seja bem vindo!
+Olá {{ usuario.funcionario.nome }}, seja bem vindo!
+<br>
+<a href="{% url 'list_funcionarios' %}">Gerenciar funcionarios</a>
+{% if usuario.funcionario.empresa %}
+<a href="{% url 'edit_empresa' usuario.funcionario.empresa.id %}">Editar empresa {{ usuario.funcionario.empresa }}</a>
+{% else %}
+<a href="{% url 'create_empresa' %}">Criar empresa </a>
+{% endif %}
 <br>
 <a href="{% url 'logout'%}">Logout</a>
 {% endblock %}
