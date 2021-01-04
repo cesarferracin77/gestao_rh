@@ -8,6 +8,9 @@ Olá {{ usuario.funcionario.nome }}, seja bem vindo!
 <a href="{% url 'documentos_cbv_list' %}">Gerenciar documentos</a>
 <br>
 <a href="{% url 'list_departamentos' %}">Gerenciar departamentos</a>
+<br>
+<a href="{% url 'list_horasextras' %}">Gerenciar Banco de horas</a>
+<br>
 {% if usuario.funcionario.empresa %}
 <a href="{% url 'edit_empresa' usuario.funcionario.empresa.id %}">Editar empresa {{ usuario.funcionario.empresa }}</a>
 {% else %}
