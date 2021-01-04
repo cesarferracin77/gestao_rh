@@ -4,9 +4,22 @@
 {% block main %}
     <form method="POST">
         {%  csrf_token%}
-
+        <h1>Funcionário {{ object }} </h1>
         {{ form|bootstrap}}
-
-        <button type="submit" class="btn btn-main">Salvar</button>
+        <br>
+        <button type="submit" class="btn btn-info">Salvar</button>
     </form>
+    <br>
+    <h2>Documentos</h2>
+    <ul>
+    {% for documento in object.documento_set.all %}
+        <li>
+            <a href="{{ documento.arquivo.url }} "> {{ documento.descricao }}  </a><br>
+        </li>
+    {% endfor %}
+    </ul>
+    {% if object %}
+    <a href="{% url 'documento_cbv_upload'%}" class="btn btn-info">Adicionar documento</a>
+    {% endif %}
+
 {% endblock %}

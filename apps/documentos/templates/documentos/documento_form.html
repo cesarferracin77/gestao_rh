@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block main %}
+    <form method="POST">
+        {%  csrf_token%}
+        <h1>Documento</h1>
+        {{ form|bootstrap }}
+        <br>
+        <button type="submit" class="btn btn-info">Adicionar</button>
+    </form>
+{% endblock %}

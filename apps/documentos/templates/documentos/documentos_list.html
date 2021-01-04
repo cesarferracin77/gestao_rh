@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+{% block content_header %}
+<h2>Lista de documentos</h2>
+    <p>
+        <a href="{% url 'documento_upload' %}" class="btn btn-primary">Inserir Documentos</a>
+    </p>
+{% endblock %}
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>Imagem</th>
+                <th>Descrição</th>
+                <th>Dono</th>
+                <th>Download</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for documento in documentos %}
+            <tr>
+                <td>
+                    {% if documento.imagem %}
+                        <img src="{{ documento.imagem.url }}" alt="{{ docuemnto.descricao }" style="width:100px;">
+                    {% else %}
+                        <span class="text-muted">Sem imagem</span>
+                    {% endif %}
+                </td>
+                <td>{{ documento.descricao }}</td>
+                <td>{{ documento.dono }}</td>
+                <td>
+                    <a href="{{ documento.arquivo.url }}" class="btn btn-primary btn-sm" target="_blank"> Baixar Documento</a>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'documento_delete' documento.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
