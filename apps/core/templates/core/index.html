@@ -1,21 +1,51 @@
 {% extends 'base.html' %}
 
 {% block main %}
-Olá {{ usuario.funcionario.nome }}, seja bem vindo!
-<br>
-<a href="{% url 'list_funcionarios' %}">Gerenciar funcionarios</a>
-<br>
-<a href="{% url 'documentos_cbv_list' %}">Gerenciar documentos</a>
-<br>
-<a href="{% url 'list_departamentos' %}">Gerenciar departamentos</a>
-<br>
-<a href="{% url 'list_horasextras' %}">Gerenciar Banco de horas</a>
-<br>
-{% if usuario.funcionario.empresa %}
-<a href="{% url 'edit_empresa' usuario.funcionario.empresa.id %}">Editar empresa {{ usuario.funcionario.empresa }}</a>
-{% else %}
-<a href="{% url 'create_empresa' %}">Criar empresa </a>
-{% endif %}
-<br>
-<a href="{% url 'logout'%}">Logout</a>
+<h1>Painel de Controle</h1>
+Olá {{ usuario.funcionario.nome }}, você pertence à empresa {{ usuario.funcionario.empresa }}. <br>Seja bem vindo!
+<br><br>
+<style>
+    table{
+        width: 60%;
+        border-collapse:collapse;
+    }
+    table tr {
+        border-bottom: solid transparent 8px; /*Distancia entre tr*/
+    }
+
+    table tr td:not(:last-child) {
+        padding: 1px 0 1px 1px; /*Retirar padding a direita da td, exceto da última para não criar colapso de bordas*/
+    }
+    table tr td span {
+        display:block;
+        padding:5px 5px 0 5px;
+    }
+
+</style>
+
+<div>
+    <table>
+      <tbody>
+        <tr margin-bottom=8px>
+          <td  align="center"><a href="{% url 'list_funcionarios' %}" class="btn btn-info">Funcionarios</a></td>
+          <td  align="center"><a href="{% url 'documentos_cbv_list' %}" class="btn btn-info">Documentos</a></td>
+        </tr>
+        <tr>
+          <td  align="center"><a href="{% url 'list_departamentos' %}" class="btn btn-info">Departamentos</a></td>
+          <td  align="center"><a href="{% url 'list_horasextras' %}" class="btn btn-info">Banco de horas</a></td>
+        </tr>
+        <tr>
+            {% if usuario.funcionario.empresa %}
+                <td  align="center"><a href="{% url 'edit_empresa' usuario.funcionario.empresa.id %}" class="btn btn-info">{{ usuario.funcionario.empresa }}</a></td>
+            {% else %}
+                <td  align="center"><a href="{% url 'create_empresa' %}" class="btn btn-info">Criar empresa </a></td>
+            {% endif %}
+            <td  align="center"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<br><br>
+<a href="{% url 'logout'%}" class="btn btn-secondary">Logout</a>
 {% endblock %}
