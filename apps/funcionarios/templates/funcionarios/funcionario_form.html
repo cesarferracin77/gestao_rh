@@ -10,6 +10,7 @@
         <button type="submit" class="btn btn-info">Salvar</button>
     </form>
     <br>
+    {% if object %}
     <h2>Documentos</h2>
     <ul>
     {% for documento in object.documento_set.all %}
@@ -18,8 +19,7 @@
         </li>
     {% endfor %}
     </ul>
-    {% if object %}
-    <a href="{% url 'documento_cbv_upload'%}" class="btn btn-info">Adicionar documento</a>
+    <a href="{% url 'documento_cbv_upload'%}" class="btn btn-secondary">Adicionar documento</a>
     {% endif %}
 
 {% endblock %}
