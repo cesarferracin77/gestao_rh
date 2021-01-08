@@ -20,7 +20,7 @@
         </li>
     {% endfor %}
     </ul>
-    <a href="{% url 'documento_cbv_upload'%}" class="btn btn-secondary">Adicionar documento</a>
+    <a href="{% url 'funcionario_documento_cbv_upload'%}" class="btn btn-secondary">Adicionar documento</a>
     <br>
     <br>
     <h2>Banco de Horas</h2>
@@ -34,5 +34,6 @@
     </ul>
     <a href="{% url 'create_horasextras'%}" class="btn btn-secondary">Adicionar horas extras</a>
     {% endif %}
-
+    <br><br>
+    <a href="{% url 'list_funcionarios'%}" class="btn btn-dark">Voltar</a>
 {% endblock %}

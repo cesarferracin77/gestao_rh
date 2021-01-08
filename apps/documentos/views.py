@@ -121,3 +121,26 @@ class DocumentoUploadView(CreateView):
 
     def get_absolute_url(self):
         return reverse_lazy('documento_cbv_upload')
+
+class FuncionarioDocumentoUploadView(CreateView):
+    model = Documento
+    #form_class = DocumentoForm
+    fields = ['descricao', 'arquivo', 'imagem']
+    template_name = 'documentos/documento_upload.html'
+
+    def post(self, request, *args, **kwargs):
+        #func_id = self.kwargs.get("funcionario_id")
+        dono = self.request.user.funcionario
+        form = self.get_form()
+        form.instance.dono_id = dono.id
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_absolute_url(self):
+        return reverse_lazy('documento_cbv_upload')
+
+    def get_success_url(self):
+        return reverse_lazy('update_funcionario', args=[self.object.dono.id])
