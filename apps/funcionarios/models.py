@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from django.urls import reverse_lazy
 
 from apps.departamentos.models import Departamento
@@ -16,6 +17,10 @@ class Funcionario(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('list_funcionarios')
+
+    @property
+    def total_horas_extras(self):
+        return self.registrohoraextra_set.all().aggregate(Sum('horas'))['horas__sum']
 
 
     def __str__(self):

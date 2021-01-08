@@ -4,7 +4,8 @@
 {% block main %}
     <form method="POST">
         {%  csrf_token%}
-        <h1>Funcionário {{ object }} </h1>
+        <h3>Funcionário</h3>
+        <h1>{{ object }} </h1>
         {{ form|bootstrap}}
         <br>
         <button type="submit" class="btn btn-info">Salvar</button>
@@ -20,6 +21,18 @@
     {% endfor %}
     </ul>
     <a href="{% url 'documento_cbv_upload'%}" class="btn btn-secondary">Adicionar documento</a>
+    <br>
+    <br>
+    <h2>Banco de Horas</h2>
+    <h5>Total de horas extras: {{ object.total_horas_extras }}</h5>
+    <ul>
+    {% for horaextra in object.registrohoraextra_set.all %}
+        <li>
+            <a href="{% url 'update_funcionario_horasextras' horaextra.id %}"> {{ horaextra.motivo }}  - {{ horaextra.horas }} horas </a><br>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'create_horasextras'%}" class="btn btn-secondary">Adicionar horas extras</a>
     {% endif %}
 
 {% endblock %}
