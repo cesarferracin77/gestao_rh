@@ -26,8 +26,12 @@
     {% endif %}
     <a href="{% url 'list_horasextras'%}" class="btn btn-dark">Listar horas extras</a>
     <br><br><p id="mensagem"></p>
-
-    <h5 id="horas_atualizadas">Total de horas extras para {{ object.funcionario.nome }}: {{ object.funcionario.total_horas_extras }} horas</h5>
+    <h5></h5>
+    <h5>Total de horas extras para o funcionário {{ object.funcionario.nome }}: </h5>
+    <div id="horas_antes">
+            <h5 >{{ object.funcionario.total_horas_extras }} horas</h5>
+    </div>
+    <h5 id="horas_atualizadas">  </h5>
 
 {% endblock %}
 

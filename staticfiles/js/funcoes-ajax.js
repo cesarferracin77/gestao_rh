@@ -9,11 +9,14 @@ function utilizouHoraExtra(id){
         },
         success: function(result){
             $("#mensagem").text(result.mensagem);
-            $("#horas_atualizadas").text(result.horas);
+            $("#horas_atualizadas").text(result.horas).append(" horas");
             $("[name='utilizada']").attr({'checked':'checked'});
 
             $("#btn-recuperar-he").attr( "hidden", false);
             $("#btn-utilizar-he").attr( "hidden", true);
+
+            $("#horas_antes").hide()
+
         }
     });
 
@@ -30,10 +33,12 @@ function recuperouHoraExtra(id){
         },
         success: function(result){
             $("#mensagem").text(result.mensagem);
-            $("#horas_atualizadas").text(result.horas);
+            $("#horas_atualizadas").text(result.horas).append(" horas");
             $("[name='utilizada']").attr( "checked", false);
             $("#btn-recuperar-he").attr( "hidden", true);
             $("#btn-utilizar-he").attr( "hidden", false);
+
+            $("#horas_antes").hide()
 
         }
     });
