@@ -1,23 +1,37 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load bootstrap %}
 
 {% block main %}
     <form method="POST">
         {%  csrf_token%}
-        <h1>Banco de Horas </h1>
+        <h1>Banco de horas </h1>
         {{ form|bootstrap}}
         <br>
         <button type="submit" class="btn btn-info">Salvar</button>
         {% if object %}
             <a href="{% url 'delete_horasextras' object.id %}"  class="btn btn-danger">Deletar</a>
+            {% if object.utilizada %}
+                 <button id="btn-recuperar-he" onclick="recuperouHoraExtra({{ object.id }})" class="btn btn-info" type="button">Marcar horas como não utilizadas</button>
+                 <button id ="btn-utilizar-he" hidden="True" onclick="utilizouHoraExtra({{ object.id }})" class="btn btn-info" type="button">Usar horas extras</button>
+            {% else %}
+                 <button id="btn-recuperar-he"  hidden="True"  onclick="recuperouHoraExtra({{ object.id }})" class="btn btn-info" type="button">Marcar horas como não utilizadas</button>
+                 <button id ="btn-utilizar-he" onclick="utilizouHoraExtra({{ object.id }})" class="btn btn-info" type="button">Usar horas extras</button>
+            {% endif %}
         {% endif %}
     </form>
-
     <br>
     {% if object %}
-        <br>
-        <a href="{% url 'create_horasextras'%}" class="btn btn-info">Adicionar horas extras</a>
+        <a href="{% url 'create_horasextras'%}" class="btn btn-warning">Adicionar horas extras</a>
     {% endif %}
-    <br><br><a href="{% url 'list_horasextras'%}" class="btn btn-dark">Horas Extras</a>
+    <a href="{% url 'list_horasextras'%}" class="btn btn-dark">Listar horas extras</a>
+    <br><br><p id="mensagem"></p>
 
+    <h5 id="horas_atualizadas">Total de horas extras para {{ object.funcionario.nome }}: {{ object.funcionario.total_horas_extras }} horas</h5>
+
+{% endblock %}
+
+{% block static %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/funcoes-ajax.js' %}"></script>
 {% endblock %}
