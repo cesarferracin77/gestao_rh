@@ -46,6 +46,10 @@ Empresa: <b>{{ usuario.funcionario.empresa }}</b>
             {% endif %}
             <td  align="center"></td>
         </tr>
+        <tr>
+            <td  align="center"><a href="{% url 'relatorio_funcionarios' %}" class="btn btn-info">Relatório de Funcionários PDF</a></td>
+            <td  align="center"><a href="{% url 'relatorio_funcionarios_html' %}" class="btn btn-info">Relatório de Funcionários HTML</a></td>
+        </tr>
       </tbody>
     </table>
 </div>

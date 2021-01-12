@@ -1,4 +1,6 @@
+import csv
 import json
+import xlwt
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -81,3 +83,56 @@ class HoraExtraCreate(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('list_horasextras')
+
+class ExportarParaCSV(View):
+    def get(self, request):
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="horas_extras.csv"'
+
+        registro_he = RegistroHoraExtra.objects.filter(utilizada=False)
+
+        writer = csv.writer(response)
+        writer.writerow(['Id', 'Motivo', 'Funcionário', 'Horas não utilizadas', 'Horas totais'])
+
+        for registro in registro_he:
+            writer.writerow([registro.id, registro.motivo, registro.funcionario,
+                             registro.funcionario.total_horas_extras, registro.horas])
+
+        return response
+
+class ExportarParaExcel(View):
+    def get(self, request):
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="horas_extras.xls"'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Banco de Horas')
+
+        row_num = 0
+
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['Id', 'Motivo', 'Funcionário', 'Horas', 'Horas totais']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        registros = RegistroHoraExtra.objects.filter(utilizada=False, funcionario__empresa = self.request.user.funcionario.empresa)
+
+        row_num = 1
+
+        for registro in registros:
+            ws.write(row_num, 0, registro.id, font_style)
+            ws.write(row_num, 1, registro.motivo, font_style)
+            ws.write(row_num, 2, registro.funcionario.nome, font_style)
+            ws.write(row_num, 3, registro.horas, font_style)
+            ws.write(row_num, 4, registro.funcionario.total_horas_extras, font_style)
+            row_num += 1
+
+        wb.save(response)
+        return response
