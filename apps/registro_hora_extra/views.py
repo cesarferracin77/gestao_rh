@@ -115,7 +115,7 @@ class ExportarParaExcel(View):
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
 
-        columns = ['Id', 'Motivo', 'Funcionário', 'Horas', 'Horas totais']
+        columns = ['Id', 'Motivo', 'Funcionário', 'Empresa', 'Horas desta atividade', 'Horas extras totais não utilizadas']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style)
@@ -130,8 +130,9 @@ class ExportarParaExcel(View):
             ws.write(row_num, 0, registro.id, font_style)
             ws.write(row_num, 1, registro.motivo, font_style)
             ws.write(row_num, 2, registro.funcionario.nome, font_style)
-            ws.write(row_num, 3, registro.horas, font_style)
-            ws.write(row_num, 4, registro.funcionario.total_horas_extras, font_style)
+            ws.write(row_num, 3, registro.funcionario.empresa.nome, font_style)
+            ws.write(row_num, 4, registro.horas, font_style)
+            ws.write(row_num, 5, registro.funcionario.total_horas_extras, font_style)
             row_num += 1
 
         wb.save(response)

@@ -46,11 +46,21 @@ Empresa: <b>{{ usuario.funcionario.empresa }}</b>
             {% endif %}
             <td  align="center"></td>
         </tr>
-        <tr>
-            <td  align="center"><a href="{% url 'relatorio_funcionarios' %}" class="btn btn-info">Relatório de Funcionários PDF</a></td>
-            <td  align="center"><a href="{% url 'relatorio_funcionarios_html' %}" class="btn btn-info">Relatório de Funcionários HTML</a></td>
-        </tr>
       </tbody>
+    </table>
+    <br><br>
+    <table>
+    <tr><h2>Relatórios</h2></tr>
+        <tr>
+            <td><h5>Funcionários: </h5></td>
+            <td  align="center"><a href="{% url 'relatorio_funcionarios' %}" class="btn btn-info">Gerar PDF</a></td>
+            <!--<td  align="center"><a href="{% url 'relatorio_funcionarios_html' %}" class="btn btn-info">Relatório em HTML</a></td> -->
+        </tr>
+        <tr>
+            <td><h5>Banco de horas: </h5></td>
+            <td  align="center"><a href="{% url 'exportar_csv' %}" class="btn btn-info">Gerar CSV</a></td>
+            <td  align="center"><a href="{% url 'exportar_excel' %}" class="btn btn-info">Gerar Planilha Excel</a></td>
+        </tr>
     </table>
 </div>
 
