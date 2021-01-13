@@ -5,7 +5,7 @@
     <br>
     {% for registrohoraextra in object_list %}
         <a href="{% url 'update_horasextras' registrohoraextra.id %}">
-            {{ registrohoraextra }}
+             {{ registrohoraextra.funcionario.nome }} | {{ registrohoraextra }}
         </a>
     <a href="{% url 'delete_horasextras' registrohoraextra.id %}">Deletar</a>
         <br>
