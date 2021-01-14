@@ -21,11 +21,13 @@ from rest_framework import routers
 from apps.core.views import UserViewSet
 from apps.core.views import GroupViewSet
 from apps.funcionarios.api.views import FuncionarioViewSet
+from apps.registro_hora_extra.api.views import RegistroHoraExtraViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'api-funcionarios', FuncionarioViewSet)
+router.register(r'api-horas-extras', RegistroHoraExtraViewSet)
 
 
 urlpatterns = [
