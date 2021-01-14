@@ -17,6 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
+from apps.core.views import UserViewSet
+from apps.core.views import GroupViewSet
+from apps.funcionarios.api.views import FuncionarioViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
+router.register(r'api-funcionarios', FuncionarioViewSet)
+
 
 urlpatterns = [
     path('', include('apps.core.urls')),
@@ -27,6 +37,8 @@ urlpatterns = [
     path('horas-extras/', include('apps.registro_hora_extra.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 if settings.DEBUG:

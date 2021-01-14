@@ -16,6 +16,10 @@ class Funcionario(models.Model):
         Empresa, on_delete=models.PROTECT, null=True, blank=True)
     imagem = models.ImageField(upload_to='funcionarios/imagens', null=True, blank=True)
 
+    def delete(self, *args, **kwargs):
+        self.imagem.delete()
+        super().delete(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse_lazy('list_funcionarios')
 

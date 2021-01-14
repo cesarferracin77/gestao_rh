@@ -25,7 +25,7 @@ class FuncionariosList(ListView):
 
 class FuncionarioEdit(UpdateView):
     model = Funcionario
-    fields = ['nome','departamentos']
+    fields = ['nome','departamentos','imagem']
 
 class FuncionarioDelete(DeleteView):
     model = Funcionario
@@ -33,7 +33,7 @@ class FuncionarioDelete(DeleteView):
 
 class FuncionarioCreate(CreateView):
     model = Funcionario
-    fields = ['nome','departamentos']
+    fields = ['nome','departamentos','imagem']
 
     def form_valid(self, form):
         funcionario = form.save(commit=False)
