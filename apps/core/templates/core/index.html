@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block main %}
-<h1>Painel de Controle</h1>
-Bem vindo, {{ usuario }}.
 <br>
-Funcionário:  <B>{{ usuario.funcionario.nome }}</B>
-<br>
-Empresa: <b>{{ usuario.funcionario.empresa }}</b>
+<h1>{% trans "Painel de Controle" %}</h1>
+{% trans "Bem vindo" %}, {{ usuario }}.
 <br><br>
+{% trans "Funcionário" %}:  <B>{{ usuario.funcionario.nome }}</B>
+<br>
+{% trans "Empresa" %}:
+            {% if usuario.funcionario.empresa %}
+                <a href="{% url 'edit_empresa' usuario.funcionario.empresa.id %}" class="btn btn-primary btn-sm">{{ usuario.funcionario.empresa }}</a>
+            {% endif %}
+<br><br><br>
 <style>
     table{
         width: 60%;
@@ -31,18 +36,16 @@ Empresa: <b>{{ usuario.funcionario.empresa }}</b>
     <table>
       <tbody>
         <tr margin-bottom=8px>
-          <td  align="center"><a href="{% url 'list_funcionarios' %}" class="btn btn-info">Funcionarios</a></td>
-          <td  align="center"><a href="{% url 'documentos_cbv_list' %}" class="btn btn-info">Documentos</a></td>
+          <td  align="center"><a href="{% url 'list_funcionarios' %}" class="btn btn-info">{% trans "Funcionários" %}</a></td>
+          <td  align="center"><a href="{% url 'documentos_cbv_list' %}" class="btn btn-info">{% trans "Documentos" %}</a></td>
         </tr>
         <tr>
-          <td  align="center"><a href="{% url 'list_departamentos' %}" class="btn btn-info">Departamentos</a></td>
-          <td  align="center"><a href="{% url 'list_horasextras' %}" class="btn btn-info">Banco de horas</a></td>
+          <td  align="center"><a href="{% url 'list_departamentos' %}" class="btn btn-info">{% trans "Departamentos" %}</a></td>
+          <td  align="center"><a href="{% url 'list_horasextras' %}" class="btn btn-info">{% trans "Banco de horas" %}</a></td>
         </tr>
         <tr>
-            {% if usuario.funcionario.empresa %}
-                <td  align="center"><a href="{% url 'edit_empresa' usuario.funcionario.empresa.id %}" class="btn btn-info">{{ usuario.funcionario.empresa }}</a></td>
-            {% else %}
-                <td  align="center"><a href="{% url 'create_empresa' %}" class="btn btn-info">Criar empresa </a></td>
+            {% if not usuario.funcionario.empresa %}
+                <td  align="center"><a href="{% url 'create_empresa' %}" class="btn btn-info">{% trans "Criar empresa" %} </a></td>
             {% endif %}
             <td  align="center"></td>
         </tr>
@@ -50,20 +53,20 @@ Empresa: <b>{{ usuario.funcionario.empresa }}</b>
     </table>
     <br><br>
     <table>
-    <tr><h2>Relatórios</h2></tr>
+    <tr><h2>{% trans "Relatórios" %}</h2></tr>
         <tr>
-            <td><h5>Funcionários: </h5></td>
-            <td  align="center"><a href="{% url 'relatorio_funcionarios' %}" class="btn btn-info">Gerar PDF</a></td>
+            <td><h5>{% trans "Funcionários" %}: </h5></td>
+            <td  align="center"><a href="{% url 'relatorio_funcionarios' %}" class="btn btn-info">{% trans "Gerar PDF" %}</a></td>
             <!--<td  align="center"><a href="{% url 'relatorio_funcionarios_html' %}" class="btn btn-info">Relatório em HTML</a></td> -->
         </tr>
         <tr>
-            <td><h5>Banco de horas: </h5></td>
-            <td  align="center"><a href="{% url 'exportar_csv' %}" class="btn btn-info">Gerar CSV</a></td>
-            <td  align="center"><a href="{% url 'exportar_excel' %}" class="btn btn-info">Gerar Planilha Excel</a></td>
+            <td><h5>{% trans "Banco de horas" %}: </h5></td>
+            <td  align="center"><a href="{% url 'exportar_csv' %}" class="btn btn-info">{% trans "Gerar CSV" %}</a></td>
+            <td  align="center"><a href="{% url 'exportar_excel' %}" class="btn btn-info">{% trans "Gerar planilha excel" %}</a></td>
         </tr>
     </table>
 </div>
 
 <br><br>
-<a href="{% url 'logout'%}" class="btn btn-secondary">Logout</a>
+<a href="{% url 'logout'%}" class="btn btn-secondary">{% trans "Logout" %}</a>
 {% endblock %}

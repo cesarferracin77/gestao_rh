@@ -14,7 +14,30 @@ from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from apps.funcionarios.models import Funcionario
 
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 # Create your views here
+class HelloApiView(APIView):
+    """API View de Teste"""
+
+    def get(self, request, format=None):
+        """Retornar lista de caracteristicas da API View"""
+        an_apiview = [
+            'Testando linha 1',
+            'Testando linha 2',
+            'Testando linha 3',
+            'Testando linha 4',
+        ]
+
+        return Response(
+            {
+                'message': 'Hello',
+                'an_apiview': an_apiview
+             }
+        )
+
+
 class FuncionariosList(ListView):
     model = Funcionario
 
